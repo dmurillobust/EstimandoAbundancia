@@ -1,0 +1,18 @@
+---
+title: "Introducción  al curso"
+output:
+  html_document:
+    df_print: paged
+---
+
+Este curso es brindado de forma gratuita por el personal de `HN Biology Investigation` con el fin de promover el desarrollo de investigaciones relacionadas con la ecología en Honduras. Te invitamos a acceder a los recursos y videos de las clases sin costo alguno.
+
+Sitio web: [Curso oficial](https://www.hnbiology.org/analisisestadisticoecologia)
+
+Base de datos y presentaciones: [Materiales](https://drive.google.com/drive/folders/11VIzUGC6mDW-RJh-nMOAoIXZmg4rnsTF?usp=sharing)
+
+Descargar R base: [R base](https://cran.r-project.org/bin/windows/base/)
+
+Descargar R studio: [R Studio](https://posit.co/download/rstudio-desktop/)
+
+![](imagenes/HNBI2_LOGO.jpg)

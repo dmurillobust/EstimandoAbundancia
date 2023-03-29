@@ -1,0 +1,300 @@
+---
+title: ''
+output: 
+       html_document:
+         css: custom.css
+header-includes:
+  - \usepackage{float}
+  - \floatstyle{boxed}
+  - \restylefloat{figure}
+  
+---
+
+<div style="display:flex; align-items:center;">
+  <h1 style="margin:0;">Clase 1: Comandos básicos en R y uso de scripts</h1>
+  <img src="imagenes/HNBI_LOGO2.jpg" alt="Texto alternativo de la imagen" style="width:100px; margin-left:20px;">
+</div>
+
+Este clase está diseñado para enseñarte los comandos básicos en R, incluyendo la creación de variables, tablas y el ingreso y análisis de bases de datos. Además, aprenderás a explorar y analizar tus datos de manera efectiva. Con el tiempo, podrás utilizar estas habilidades básicas de R para realizar análisis más complejos y obtener resultados valiosos de tus datos.
+
+
+### Contenido {.tabset .tabset-pills}
+
+#### Operaciones Basicas
+
+- Adición (suma)
+
+```{r}
+2 + 2
+```
+
+
+- Sustracción (resta)
+
+```{r}
+2 - 2
+```
+
+- Multiplicación 
+
+```{r}
+2 * 2
+```
+
+- División
+
+```{r}
+2 / 2
+```
+
+- Raíz cuadrada  
+
+::: {.notes}
+
+Observe que para la raíz cuadrada se utiliza el comando `sqrt` y el valor del que se quiere obtener la raíz cuadrada se coloca dentro de los paréntesis `( )`.
+
+```{r}
+sqrt(2)
+```
+
+:::
+
+Ahora que conocemos algunas de las operaciones básicas, podemos resolver algunos ejercicios.
+
+:::{.notes}
+
+**Ejercicio 1**
+
+Utilizando la ecuación de regresión linear, para la cual la `pendiente` tiene un valor de 0.3 y el `intercepto` un valor de 34.5, resolver cuanto sería el valor de `y` si `x` vale 36.4.
+
+  $y = intercepto + slope(x)$
+
+Solución:
+
+```{r}
+34.5 + 0.3*36.4
+```
+
+
+:::
+
+#### Creación de variables
+
+Comencemos creando variables numéricas con un único valor
+
+```{r}
+x <- 5 # En este caso, x tendrá el valor de 5
+```
+
+
+```{r}
+y <- -3 # En este caso, y tendrá el valor de -3
+```
+
+:::{.notes}
+
+Si queremos crear variables numéricas con varios valores, tendremos que crear un vector utilizando el comando `c()`, en donde cada valor estará separa por coma.
+
+```{r}
+Peso <- c(12.5, 23, 12.6, 18, 7, 18.3, 23, 40, 21,8)
+```
+
+Observe que en este caso las comas se parados los valores, y los puntos solo se utilizan para las cifras decimales. La variable `Peso` tendrá 10 observaciones.
+
+Otra forma de crear un vector es utilizando el signo `:` entre los valores del inicio y final.
+
+
+```{r}
+
+Altura <- c(1:1000)
+```
+
+En este caso la variable `Altura` tendrá 1000 observaciones
+
+:::
+
+Ahora, ¿cómo podemos crear una variable con números aleatorios?, como podemos crear una variable con distribución normal?
+
+:::{.notes}
+
+**Variable con numeros alatorios**
+
+Primero podríamos utilizar el comando `sample()` para crear números aleatorios sin una distribución en especifica, dando el número de inicio y final, y la cantidad de observaciones que deseamos.
+
+```{r}
+Aleatorios <- sample(1:1000, size = 50)
+```
+
+En este ejemplo observe que, 1 y 1000 es el rango entre el cual estarán 50 observaciones.
+
+**Variable con distribucion normal**
+
+Podemos crear variables con una distribución normal utilizando el comando `rnorm()`, en este caso tendremos que especificar la media y la desviación estándar.
+
+```{r}
+Dnormal <- rnorm(50, mean = 30, sd = 2.5)
+```
+
+Para este ejemplo, hemos creado 50 observaciones, con una media de 30 y una desviación estándar de 2.5
+
+:::
+
+
+El siguiente paso es la creación de variables categorías, variables que incluyen `categorias`. Para crear una variable de categorías tendremos que colocar cada observación entre comillas `" "`
+
+```{r}
+Variabley <- "y"
+```
+
+En este ejemplo la `variabley` solo tiene la observación `y`. Si quermos más observaciones podemos utilizar el comando `c()`.
+
+```{r}
+Seccion <- c("1A", "1B", "3A", "2B", "2A", "3A")
+```
+
+#### Cracion de tablas
+
+Ya que aprendimos como crear variables numéricas y categóricas, ahora podemos crear tablas. Para crear una tabla en R debemos de asegurar que nuestras variables presenten la misma cantidad de observaciones.
+
+:::{.notes}
+
+**Creación de tabla con 10 observaciones**
+
+Primero crearemos nuestras variables
+
+```{r}
+Temperatura <- sample(20:35, 10)
+
+Riqueza <- rnorm(10, mean = 5, sd= 3)
+
+Franja <- c("A", "A", "C", "C", "A", "B", "B", "B", "A", "C")
+```
+
+Ahora utilizando el comando `data.frame()` podemos crear nuestra tabla
+
+```{r}
+Tabla1 <- data.frame(Franja, Temperatura, Riqueza)
+```
+
+
+Observemos nuestra primera tabla
+
+```{r, echo=FALSE}
+
+knitr::kable(Tabla1)
+```
+
+:::
+
+#### Exploracion de datos
+
+Primero podemos hacer exploración rápido de nuestra primera tabla utilizando el comando `summary()` 
+
+Observe que cuando ejecutamos el comando `summary()` obtenemos la media, cuartiles, y algunos otros detalles de cada variable en nuestra tabla
+
+```{r}
+
+summary(Tabla1)
+```
+
+
+Si nos interesa obtener solo la media podemos utilizar el comando `mean()`, para la desviación estándar usamos `sd()`, y para la mediana `median()`.
+
+```{r}
+mean(Tabla1$Temperatura)
+```
+
+```{r}
+median(Tabla1$Temperatura)
+```
+
+```{r}
+
+sd(Tabla1$Temperatura)
+
+```
+
+
+Si nos interesa una gráfico exploratorio, podemos usar el comando `plot()` para una nube de puntos, `boxplot()` para un gráfico de cajas, y `hist()` para un histograma.
+
+
+```{r}
+plot(Tabla1$Temperatura)
+```
+
+
+```{r}
+boxplot(Tabla1$Temperatura)
+```
+
+
+```{r}
+hist(Tabla1$Temperatura)
+```
+
+:::
+
+#### Cargar base de datos
+
+Para cargar una base de datos de nuestro pc, necesitamos sabe exactamente la ubicación de la base de datos. Por ejemplo para cargar la base de datos `bird.sta` que se encuentra en la carpeta `data`, de nuestro proyecto de R. Podemos usar el comando `read.csv()` ya que esta base de datos está delimitada por coma.
+
+
+:::{.notes}
+
+**Ejemplo para cargar una base de datos**
+
+```{r, eval=FALSE}
+
+Aves.sta <- read.csv("data/bird.sta.csv")
+```
+
+Observe que el nombre de la base de datos es `bird.sta`, el formato es `.csv` y se encuentra en la carpeta `data`, esta base de datos fue guardada en `Aves.sta` en nuestro ambiente en R
+
+:::
+
+#### Estadistica descriptiva
+
+Para los siguientes ejemplos utilizaremos la base de datos `penguins` del paquete `palmerpenguins`
+
+
+:::{.notes} 
+
+**Cargar la base de datos penguins**
+
+Primero debemos cargar el paquete `palmerpenguins`
+
+```{r}
+library(palmerpenguins)
+```
+
+Una vez cargada el paquete podemos cargar a la base de datos `penguins`
+
+```{r}
+data("penguins")
+```
+
+:::
+
+
+:::{.notes}
+
+Calcular la media de cada columna del data frame
+
+```{r}
+sapply(penguins[, 3:6], mean, na.rm = TRUE)
+```
+
+Observe que que estamos seleccionando la columna 3 a la 6 (ya que contienen variables numericas), y el nar.rm = TRUE, es para que reconosca que existen NA en nuestra base de datos.
+
+:::
+
+:::{.notes}
+
+Calcular la media de la masa de los pingüinos para cada especie
+
+```{r}
+tapply(penguins$body_mass_g, penguins$species, mean, na.rm =TRUE )
+```
+Observe que que estamos seleccionando la columna `body_mass_g` para estimar la media condicionada por la variable `species`, el nar.rm = TRUE, es para que reconosca que existen NA en nuestra base de datos.
+
+:::
